@@ -3,6 +3,7 @@ Review: Deep Geometric Learning, 这个比较难，还涉及到信号处理以�
 Toturial:pytorch geometric tutorial, Pyg的入门版本，youtube配有视频，而且附有代码。https://antoniolonga.github.io/Pytorch_geometric_tutorials/
 Toturial:E3NN的toturial，关于equvirance, invariance以及group theory的东西。这个涉及地非常物理，推荐国内的书为北大物院李新征群论的讲义和凝聚态物理当中的群论，国外的书一搜一大把
        这个是MSR的2021年Seminar https://e3nn.org/e3nn-tutorial-mrs-fall-2021/
+人工智能的矩阵代数方法
 
 人工智能的数学基础知识可以分为高等数学、线性代数、概率论与数理统计三部分
 推荐Stanford CS229, 相关的Github网址https://github.com/fengdu78/Data-Science-Notes/tree/master/0.math
