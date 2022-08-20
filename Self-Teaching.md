@@ -1,0 +1,4 @@
+Question
+图神经当中对adj的直接操作和对edge_index索引之间的联系与转换
+aggregation当中使用的GRU模块和Attention之间的GRU模块
+如何根据一个节点的信息继续往下推断 
