@@ -1,0 +1,6 @@
+masif: 
+install pymesh: python=3.6, conda install pymesh2 -c conda-forge.  If you want to create a new environment to perform the data preparation, conda create -n pymesh -c conda-forge pymesh2 rdkit ipykernel
+
+kernel cannot start:
+tornado > 5.0, not good
+pip install tornado==4.0.3
