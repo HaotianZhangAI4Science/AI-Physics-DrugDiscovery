@@ -8,3 +8,4 @@ torch.multinomial()
 进行权重采样的函数
 weights = torch.Tensor([0.2, 0.2, 0.3, 0.3])   # 采样权重
 torch.multinomial(weights, 2)
+返回两个采样的样本
