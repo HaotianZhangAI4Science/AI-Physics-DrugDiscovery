@@ -32,3 +32,8 @@ rec_zh = self.pkt_embedding(rec_z)
 lig_zh = self.lig_embedding(lig_z)
 zh[rec_mask] = rec_zh
 zh[~rec_mask] = lig_zh 
+
+
+有时间看一下torch.view的机制
+以下的代码是判断两个矩阵是否完全相同的
+torch.all(torch.eq(test, z.view(-1,4)))
