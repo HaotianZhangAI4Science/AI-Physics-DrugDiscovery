@@ -5,3 +5,16 @@ rdkit切分fragment
 https://zhuanlan.zhihu.com/p/390678258
 rdkit显示键的编号
 https://zhuanlan.zhihu.com/p/163827512
+
+
+不同rdkit版本的容错率还不一样，如果直接从mol文件当中读取分子，比如
+mol = Chem.MolFromMolFile(lig_path) 的话，很多时候会报valence的错误
+这个时候mol = Chem.MolFromMolFile(lig_path,sanitize=False) 就可以继续操作了
+
+读取sdf文件
+suppl = Chem.SDMolSupplier(lig_path, sanitize=False)
+mols = [mol for mol in suppl if mol]	
+mol = mols[0]
+
+读取mol2文件
+mol = Chem.MolFromMol2File(mol2_path, sanitize=False)
