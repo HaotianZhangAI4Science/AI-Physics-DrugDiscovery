@@ -4,3 +4,7 @@ install pymesh: python=3.6, conda install pymesh2 -c conda-forge.  If you want t
 kernel cannot start:
 tornado > 5.0, not good
 pip install tornado==4.0.3
+
+安装Masif
+conda create -c conda-forge -n pymesh2 rdkit pymesh2 ipykernel python=3.6
+MSMS 安装 https://www.cnblogs.com/Elvis123/p/13978808.html
