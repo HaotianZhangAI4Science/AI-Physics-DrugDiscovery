@@ -5,7 +5,8 @@ rdkit切分fragment
 https://zhuanlan.zhihu.com/p/390678258
 rdkit显示键的编号
 https://zhuanlan.zhihu.com/p/163827512
-
+二面角扫描
+https://pschmidtke.github.io/blog/torsion/dihedral/oss/opensource/rdkit/xtb/energy/2021/02/16/torsion-angle-scans-xtb.html
 
 不同rdkit版本的容错率还不一样，如果直接从mol文件当中读取分子，比如
 mol = Chem.MolFromMolFile(lig_path) 的话，很多时候会报valence的错误
