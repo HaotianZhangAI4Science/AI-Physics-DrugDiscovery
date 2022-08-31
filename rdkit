@@ -8,6 +8,8 @@ https://zhuanlan.zhihu.com/p/163827512
 二面角扫描
 https://pschmidtke.github.io/blog/torsion/dihedral/oss/opensource/rdkit/xtb/energy/2021/02/16/torsion-angle-scans-xtb.html
 https://github.com/vermasrijan/redial-2020/blob/5cfd09d5645301654373cb9008ded1b2552bd920/mayachemtools/bin/RDKitPerformTorsionScan.py#L588
+fragment_utils
+https://github.com/deepchem/deepchem/blob/9664aeab16940e1ee46030cac08d90e12aa24751/deepchem/utils/test/test_fragment_utils.py
 
 不同rdkit版本的容错率还不一样，如果直接从mol文件当中读取分子，比如
 mol = Chem.MolFromMolFile(lig_path) 的话，很多时候会报valence的错误
