@@ -37,3 +37,9 @@ zh[~rec_mask] = lig_zh
 有时间看一下torch.view的机制
 以下的代码是判断两个矩阵是否完全相同的
 torch.all(torch.eq(test, z.view(-1,4)))
+
+
+
+#处理离散变量
+atomic_numbers = torch.LongTensor([6,7,8,9,15,16,17])  # C N O F P S Cl
+element = data.ligand_element.view(-1, 1) == self.atomic_numbers.view(1, -1)   # (N_atoms, N_elements)
