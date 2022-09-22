@@ -22,3 +22,14 @@ mol = mols[0]
 
 读取mol2文件
 mol = Chem.MolFromMol2File(mol2_path, sanitize=False)
+
+屏蔽Rdkit的Error输出
+from rdkit import RDLogger
+lg = RDLogger.logger()
+lg.setLevel(RDLogger.CRITICAL)
+smi = 'CO(C)C'
+mol = Chem.MolFromSmiles(smi)
+try:
+    Chem.SanitizeMol(mol)
+except:
+    print('OK')
