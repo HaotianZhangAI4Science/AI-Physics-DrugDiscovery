@@ -43,3 +43,11 @@ torch.all(torch.eq(test, z.view(-1,4)))
 #处理离散变量
 atomic_numbers = torch.LongTensor([6,7,8,9,15,16,17])  # C N O F P S Cl
 element = data.ligand_element.view(-1, 1) == self.atomic_numbers.view(1, -1)   # (N_atoms, N_elements)
+
+#按照smiles对数据归类
+from collections import defaultdict
+ref = defaultdict(list)
+#产生packed_data
+for i in tqdm(range(len(mol_labels))):
+    smiles = Chem.MolToSmiles(Chem.RemoveHs(mol_labels[i]))
+    ref[smiles].append(mol_labels[i])
