@@ -51,3 +51,12 @@ ref = defaultdict(list)
 for i in tqdm(range(len(mol_labels))):
     smiles = Chem.MolToSmiles(Chem.RemoveHs(mol_labels[i]))
     ref[smiles].append(mol_labels[i])
+
+#multiprocessing block
+fail_list = []
+pool = multiprocessing.Pool(12)
+for result in tqdm(pool.imap(gen_ply_file, range(len(data_lines))), total=len(data_lines)):
+    if result is not None:
+        fail_list.append(result)
+pool.close()
+pool.join()
