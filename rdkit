@@ -33,3 +33,15 @@ try:
     Chem.SanitizeMol(mol)
 except:
     print('OK')
+   
+# rdkit内部会有拓扑匹配的事情，所以要非常小心地处理拓扑问题。拿到新的分子最好的方式就是先去H然后再加氢
+def cannaical_mol(mol, 3d=True, addhs=True):
+    mol_ = copy.deepcopy(mol)
+    mol_ = Chem.RemoveAllHs(mol_)
+    smi = Chem.MolToSmiles(mol_)
+    if 3D is True and addhs is True:
+        mol_ = Chem.AddHs(mol_, addCoords=True)
+    if 3D is not True and addhs is True:
+        mol_ = Chem.AddHs(mol_)
+    return mol_, smi
+    return mol_, smi
