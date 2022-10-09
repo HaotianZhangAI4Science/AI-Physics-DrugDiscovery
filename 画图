@@ -36,3 +36,39 @@ plt.ylim(0, 0.2)
 plt.legend(['KDE'],loc='upper left',prop=font1)
 plt.xticks(fontsize=12)
 plt.yticks(fontsize=12)
+
+
+# 做2D histogram 的等高线图以及plot新采样的点上去，控制输出的colorbar，以及坐标轴的间距，坐标轴保留的小数点
+import matplotlib.ticker as mtick
+meta = np.array([tica_concatenated_0[:50000,0],tica_concatenated_0[:50000,1]])
+fig,ax=plt.subplots(1,1)
+
+alpha=0.8
+eps = 1e-4
+bins = (40,40)
+xlim = (-2,2.5)
+ylim = (-2.6,2.0)
+ranges = (xlim, ylim)
+H, xedges, yedges = np.histogram2d(meta[0], meta[1] ,bins=bins, range=ranges)
+H += eps
+H = -np.log(H)
+x = np.linspace(xedges[0], xedges[-1],bins[0])
+y = np.linspace(yedges[0], yedges[-1],bins[1])
+X, Y = np.meshgrid(x, y)
+plt.contourf(X,Y,H.T, cmap='Blues_r', alpha=0.7)
+
+p2 = plt.scatter(tica_concatenated_0[50001:50250,0],tica_concatenated_0[50001:50250,1],color=sns.color_palette()[3], alpha=0.8)
+p3 = plt.scatter(tica_concatenated_4[50001:50578,0],tica_concatenated_4[50001:50578,1], color=sns.color_palette()[1],alpha=0.8)
+
+plt.xticks(fontsize=14)
+plt.yticks(fontsize=14)
+x_major_locator=MultipleLocator(1.0)
+y_major_locator = MultipleLocator(1.0)
+ax.xaxis.set_major_locator(x_major_locator)
+ax.yaxis.set_major_locator(y_major_locator)
+plt.xlim(xlim)
+plt.ylim(ylim)
+ax.yaxis.set_major_formatter(mtick.FormatStrFormatter('%.1f'))
+ax.xaxis.set_major_formatter(mtick.FormatStrFormatter('%.1f'))
+plt.legend([p2,p3],['SDEGen','CREST'], loc='upper right',fontsize=14)
+plt.savefig('1_SDEGen.png', dpi=400)
