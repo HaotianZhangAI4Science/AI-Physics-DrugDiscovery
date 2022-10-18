@@ -45,3 +45,9 @@ def cannaical_mol(mol, 3d=True, addhs=True):
         mol_ = Chem.AddHs(mol_)
     return mol_, smi
     return mol_, smi
+
+def rm_radical(mol):
+    mol = copy.deepcopy(mol)
+    for atom in mol.GetAtoms():
+        atom.SetNumRadicalElectrons(0)
+    return mol
