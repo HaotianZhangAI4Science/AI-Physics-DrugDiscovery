@@ -20,6 +20,11 @@ Stanford CS224W 图机器学习
 优化问题：
 Graph Matching 
 Shape Matching
+Computer Graphics
+https://www.youtube.com/playlist?list=PL9_jI1bdZmz2emSh0UQ5iOdT2xRHFHL7E
+Mesh Generation and Geometry Processing in Graphics, Engineering, and Modeling
+https://people.eecs.berkeley.edu/~jrs/mesh/
+
 
 bro, 你肯定想学一些几何的东西吧，这里是讲旋转矩阵的博主https://zhuanlan.zhihu.com/p/445936075
 下面这个链接做的很好，百度给出的傻逼东西都是废话，根本算不了，下面的这个链接讨论了经典力学的变分方法以及各种良好的概念。
@@ -50,3 +55,4 @@ https://developer.aliyun.com/article/838115
 cs228Learning in undirected models
 https://github.com/wiseodd/MCMC
 https://www.bilibili.com/video/BV1rZ4y1X74i?spm_id_from=333.337.search-card.all.click
+
