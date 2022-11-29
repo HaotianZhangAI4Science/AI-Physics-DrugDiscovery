@@ -66,3 +66,6 @@ https://bioinformaticsreview.com/20200716/prepare-receptor-and-ligand-files-for-
 
 PDBProcessor 
 https://github.com/openmm/pdbfixer
+
+rdkit各种问题
+https://greglandrum.github.io/rdkit-blog/prototypes/technical/2020/01/25/trying-the-tautomer-canonicalization-code.html
