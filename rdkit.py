@@ -51,3 +51,26 @@ def rm_radical(mol):
     for atom in mol.GetAtoms():
         atom.SetNumRadicalElectrons(0)
     return mol
+
+#rdkit的各种blog
+#https://greglandrum.github.io/rdkit-blog/prototypes/technical/2020/01/25/trying-the-tautomer-canonicalization-code.html
+
+#rdkit显示原子序号
+#https://www.jianshu.com/p/ec4f3b9e57f9
+# method1
+mol = Chem.MolFromSmiles('c1ccccc(C(N)=O)1')
+for atom in mol.GetAtoms():
+    atom.SetProp("atomNote", str(atom.GetIdx()))
+mol
+# method2
+from rdkit import Chem
+
+def showAtomNum(smi):
+    try:
+        mol=Chem.MolFromSmiles(smi)
+        for i, atom in enumerate(mol.GetAtoms()):
+            atom.SetProp('molAtomMapNumber',str(i))
+        return Chem.MolToSmiles(mol)
+    except Exception as e:
+        print (e)
+        return None
