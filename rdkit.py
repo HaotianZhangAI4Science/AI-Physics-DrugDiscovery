@@ -74,3 +74,6 @@ def showAtomNum(smi):
     except Exception as e:
         print (e)
         return None
+
+#https://molvs.readthedocs.io/en/latest/
+#Google Summer Code Project
