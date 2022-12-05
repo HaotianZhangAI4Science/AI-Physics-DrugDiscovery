@@ -77,3 +77,8 @@ def showAtomNum(smi):
 
 #https://molvs.readthedocs.io/en/latest/
 #Google Summer Code Project
+
+# 重新规划rdkit的顺序
+from rdkit.Chem import rdmolfiles
+new_order1 = rdmolfiles.CanonicalRankAtoms(m1)
+mol1 = rdmolops.RenumberAtoms(m1, new_order1)
