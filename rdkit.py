@@ -82,3 +82,21 @@ def showAtomNum(smi):
 from rdkit.Chem import rdmolfiles
 new_order1 = rdmolfiles.CanonicalRankAtoms(m1)
 mol1 = rdmolops.RenumberAtoms(m1, new_order1)
+
+# MolToGrid, and save the svg file
+def plot_rdkit_svg_grid(mols, mols_per_row=5, filename=None, **kwargs):
+    """
+    Plots a grid of RDKit molecules in SVG.
+    :param mols: a list of RDKit molecules
+    :param mols_per_row: size of the grid
+    :param filename: save an image with the given filename
+    :param kwargs: additional arguments for `RDKit.Chem.Draw.MolsToGridImage`
+    :return: the SVG as a string
+    """
+    svg = Draw.MolsToGridImage(mols, molsPerRow=mols_per_row, useSVG=True, **kwargs)
+    if filename is not None:
+        if not filename.endswith('.svg'):
+            filename += '.svg'
+        with open(filename, 'w') as f:
+            f.write(svg)
+    return svg 
