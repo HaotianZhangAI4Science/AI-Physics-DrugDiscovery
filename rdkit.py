@@ -100,3 +100,6 @@ def plot_rdkit_svg_grid(mols, mols_per_row=5, filename=None, **kwargs):
         with open(filename, 'w') as f:
             f.write(svg)
     return svg 
+
+#rdkit进阶教程
+#http://rdkit.chenzhaoqiang.com/mediaManual.html#id8
