@@ -5,3 +5,6 @@ aggregation当中使用的GRU模块和Attention之间的GRU模块
 
 MSMS- Molecular surface generator
 https://ccsb.scripps.edu/msms/documentation/
+
+nice paper
+https://deepai.org/publication/molecule-optimization-via-fragment-based-generative-models
