@@ -103,3 +103,6 @@ def plot_rdkit_svg_grid(mols, mols_per_row=5, filename=None, **kwargs):
 
 #rdkit进阶教程
 #http://rdkit.chenzhaoqiang.com/mediaManual.html#id8
+
+#rdkit 计算shape and electrostatic similarity 
+#https://iwatobipen.wordpress.com/2021/12/10/compare-shape-and-electrostatic-similarity-of-molecules-rdkit-espsim-python/
