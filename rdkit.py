@@ -106,3 +106,8 @@ def plot_rdkit_svg_grid(mols, mols_per_row=5, filename=None, **kwargs):
 
 #rdkit 计算shape and electrostatic similarity 
 #https://iwatobipen.wordpress.com/2021/12/10/compare-shape-and-electrostatic-similarity-of-molecules-rdkit-espsim-python/
+
+#单个分子highlight
+Draw.MolsToGridImage([mol],highlightAtomLists=[anchor_idx])
+#存储highlight
+Draw.MolToFile(mol, 'test.png',highlightAtoms=anchor_idx )
