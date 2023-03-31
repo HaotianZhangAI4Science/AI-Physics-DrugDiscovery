@@ -1,0 +1,44 @@
+HEADER
+HEADER This is a pdb format file writen by the programm fpocket.                 
+HEADER It represents the atoms contacted by the voronoi vertices of the pocket.  
+HEADER                                                                           
+HEADER Information about the pocket     4:
+HEADER 0  - Pocket Score                      : -0.0059
+HEADER 1  - Drug Score                        : 0.0508
+HEADER 2  - Number of alpha spheres           :    29
+HEADER 3  - Mean alpha-sphere radius          : 3.9527
+HEADER 4  - Mean alpha-sphere Solvent Acc.    : 0.5020
+HEADER 5  - Mean B-factor of pocket residues  : 0.4886
+HEADER 6  - Hydrophobicity Score              : 24.3333
+HEADER 7  - Polarity Score                    :     4
+HEADER 8  - Amino Acid based volume Score     : 4.2222
+HEADER 9  - Pocket volume (Monte Carlo)       : 292.1743
+HEADER 10  -Pocket volume (convex hull)       : 14.3468
+HEADER 11 - Charge Score                      :     3
+HEADER 12 - Local hydrophobic density Score   : 20.6364
+HEADER 13 - Number of apolar alpha sphere     :    22
+HEADER 14 - Proportion of apolar alpha sphere : 0.7586
+ATOM     52    C PHE A 161     -12.786  -4.341   9.429  0.00  0.00           C 0
+ATOM    172   CD LYS A 182      -8.757  -6.080   5.900  0.00  0.00           C 0
+ATOM     46    O THR A 160     -10.745  -4.404  12.506  0.56  7.50           O 0
+ATOM    181  CG2 VAL A 185      -8.931  -8.168   9.345  0.00  0.00           C 0
+ATOM     69   CB LYS A 163     -12.622   1.311   5.225  0.00  0.00           C 0
+ATOM    156  CG2 ILE A 180     -14.468  -3.442   1.983  0.00  0.00           C 0
+ATOM    157  CD1 ILE A 180     -14.998  -0.672   0.665  0.00  0.00           C 0
+ATOM     71   CD LYS A 163     -10.226   1.640   4.455  0.00  0.00           C 0
+ATOM     61    N GLY A 162     -12.730  -3.013   9.272  0.00  0.00           N 0
+ATOM     37   CE LYS A 158      -7.507   1.523   9.703  0.00  0.00           C 0
+ATOM     42    O GLY A 159     -11.509  -0.865  11.695  0.81  4.29           O 0
+ATOM     72   CE LYS A 163      -8.732   1.508   4.791  0.00  0.00           C 0
+ATOM    173   CE LYS A 182      -7.741  -5.654   4.834  0.00  0.00           C 0
+ATOM     62   CA GLY A 162     -12.728  -2.426   7.940  0.00  0.00           C 0
+ATOM     64    O GLY A 162     -12.625  -0.171   8.778  0.00  0.00           O 0
+ATOM    154   CB ILE A 180     -15.278  -2.292   2.619  0.00  0.00           C 0
+ATOM     70   CG LYS A 163     -11.136   1.214   5.624  0.00  0.00           C 0
+ATOM     53    O PHE A 161     -12.702  -5.106   8.463  0.00  0.00           O 0
+ATOM     63    C GLY A 162     -12.951  -0.921   7.862  0.00  0.00           C 0
+ATOM    153    O ILE A 180     -14.626  -2.926   5.392  0.73  3.21           O 0
+ATOM     65    N LYS A 163     -13.459  -0.474   6.713  0.44  1.09           N 0
+ATOM    171   CG LYS A 182     -10.128  -6.432   5.296  0.00  0.00           C 0
+TER
+END
