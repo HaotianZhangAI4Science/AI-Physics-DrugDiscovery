@@ -1,8 +1,87 @@
-from Bio.PDB import PDBParser, NeighborSearch, PDBIO, Select
+from Bio.PDB import PDBParser, NeighborSearch, PDBIO, Select, PPBuilder
 from pymol import cmd
 import os.path as osp
+import os
 from rdkit import Chem
 # conda install -c conda-forge pymol-open-source
+from Bio import PDB
+from Bio import SeqIO
+from Bio.Seq import Seq
+from Bio.SeqRecord import SeqRecord
+from concurrent.futures import ThreadPoolExecutor, as_completed
+from tqdm import tqdm
+
+def pdb_to_fasta(pdb_filename, output_fasta):
+    pp_builder = PPBuilder()
+    parser = PDBParser(QUIET=True)
+    records = []
+
+
+    structure = parser.get_structure(os.path.splitext(os.path.basename(pdb_filename))[0], pdb_filename)
+        
+    all_chains_sequence = ""
+    for model in structure:
+        for chain in model:
+            pp = pp_builder.build_peptides(chain)
+            sequence = "".join(str(p.get_sequence()) for p in pp)
+            all_chains_sequence += sequence
+                
+    seq_record = SeqRecord(Seq(all_chains_sequence), id=structure.id, description=f"All chains from {structure.id}")
+
+    SeqIO.write([seq_record], output_fasta, "fasta")
+
+
+def read_fasta_file(file_path):
+    with open(file_path, "r") as file:
+        lines = file.readlines()
+    sequences = {}
+    current_key = ""
+    for line in lines:
+        if line.startswith(">"):
+            current_key = line.strip()
+            sequences[current_key] = ""
+        else:
+            sequences[current_key] += line.strip()
+    return sequences
+
+
+def pdb_to_fasta_parallel(pdb_filenames, output_fasta, num_workers=4): 
+    '''
+    e.g.: pdb_to_fasta_parallel(train_pdbfiles, "train.fasta", num_workers=12)
+
+    '''
+    def process_pdb_file(pdb_filename):
+        parser = PDB.PDBParser(QUIET=True)
+        structure = parser.get_structure(os.path.basename(pdb_filename), pdb_filename)
+        name = os.path.basename(pdb_filename)
+        sequences = []
+        seq = ""
+        for chain in structure.get_chains():
+            for residue in chain.get_residues():
+                res_id = residue.get_resname()
+                try:
+                    seq += PDB.Polypeptide.three_to_one(res_id)
+                except KeyError:
+                    continue
+
+        sequences.append(f">{name}\n{seq}")
+
+        return sequences
+
+    all_sequences = []
+
+    with ThreadPoolExecutor(max_workers=num_workers) as executor:
+        futures = {executor.submit(process_pdb_file, pdb_filename): pdb_filename for pdb_filename in pdb_filenames}
+
+        for future in tqdm(as_completed(futures), total=len(futures), desc="Processing PDB files"):
+            sequences = future.result()
+            all_sequences.extend(sequences)
+
+    with open(output_fasta, "w") as output_file:
+        output_file.write("\n".join(all_sequences))
+
+
+
 
 def align_and_rmsd(src_file, tgt_file, saved_file=None):
     '''
@@ -81,7 +160,7 @@ def pocket_trunction(pdb, ligand, threshold=10.0, save_name=None):
         structure = pdb
     # Extract pocket residues
     ns = NeighborSearch(list(structure.get_atoms()))
-    pocket_residues = {res.parent for coord in ligand_coords for res in ns.search(coord, threshold)}
+    pocket_residues = {res for coord in ligand_coords for res in ns.search(coord, threshold)}
     
     # (Optional): save the pocket resides
     if save_name:
@@ -102,97 +181,9 @@ def extract_alphafold_pocket(pocket_residues, alphafold_structure):
             if (res.get_resname(), res.id[1]) in pocket_residue_info:
                 pocket_residues_alphafold.add(res)
 
-    return pocket_residues_alphafold
+    return pocket_residues, pocket_residues_alphafold
     
 
-def calculate_pocket_sasa(pocket_pdb_file):
-    import freesasa
-    # Load the structure from the PDB file
-    structure = freesasa.Structure(pocket_pdb_file)
-
-    # Compute the SASA
-    result = freesasa.calc(structure)
-
-    # Get the total SASA
-    sasa = result.totalArea()
-
-    return sasa
-
-def read_pocket_info(pdb_file):
-    pocket_coords = []
-    monte_carlo_volume = None
-    convex_hull_volume = None
-
-    with open(pdb_file, "r") as f:
-        for line in f:
-            if line.startswith("ATOM"):
-                x = float(line[30:38].strip())
-                y = float(line[38:46].strip())
-                z = float(line[46:54].strip())
-                pocket_coords.append([x, y, z])
-            if "Pocket volume (Monte Carlo)" in line:
-                monte_carlo_volume = float(line.split(":")[-1].strip())
-            if "Pocket volume (convex hull)" in line:
-                convex_hull_volume = float(line.split(":")[-1].strip())
-    
-    return np.mean(pocket_coords, axis=0), monte_carlo_volume, convex_hull_volume
-
-import numpy as np
-import matplotlib.pyplot as plt
-from mpl_toolkits.mplot3d.art3d import Poly3DCollection
-from scipy.spatial import ConvexHull
-
-def compute_convex_hull_volume(coords):
-    tri = Delaunay(coords)
-    tetrahedra = coords[tri.simplices]
-
-    volume = 0.0
-    for tetrahedron in tetrahedra:
-        volume += np.abs(np.linalg.det(tetrahedron[:-1] - tetrahedron[-1])) / 6
-
-    return volume
-
-def plot_convex_hull(coords1, coords2, volume1, volume2):
-    hull1 = ConvexHull(coords1)
-    hull2 = ConvexHull(coords2)
-
-    fig = plt.figure(figsize=(12, 6))
-    ax1 = fig.add_subplot(121, projection='3d')
-    ax2 = fig.add_subplot(122, projection='3d')
-
-    for ax, hull, volume, title in zip([ax1, ax2], [hull1, hull2], [volume1, volume2], ['Pocket 1', 'Pocket 2']):
-        for simplex in hull.simplices:
-            poly = Poly3DCollection([coords1[simplex]], alpha=0.5)
-            poly.set_facecolor('blue')
-            ax.add_collection3d(poly)
-
-        ax.set_title(f'{title} - Volume: {volume:.2f}')
-        ax.set_xlabel('X')
-        ax.set_ylabel('Y')
-        ax.set_zlabel('Z')
-        ax.set_xlim([-50, 50])
-        ax.set_ylim([-50, 50])
-        ax.set_zlim([-50, 50])
-        ax.view_init(elev=20, azim=-35)
-
-    plt.show()
-
-
-def get_pdb_coords(pdbfile):
-    parser = PDBParser(QUIET=True)
-    structure = parser.get_structure('pocket', pdbfile)
-    coords = np.array([atom.get_coord() for atom in structure.get_atoms()])
-    return coords
-
-# compute and plot convex hull
-# coords1 = np.random.rand(30, 3) * 100 - 50  # Generate random coordinates for pocket 1
-# coords2 = np.random.rand(30, 3) * 100 - 50  # Generate random coordinates for pocket 2
-# coords1 = get_pdb_coords(crystal)
-# coords2 = get_pdb_coords(af)
-# volume1 = compute_convex_hull_volume(coords1)  # Replace with your function to compute the volume
-# volume2 = compute_convex_hull_volume(coords2)  # Replace with your function to compute the volume
-
-# plot_convex_hull(coords1, coords2, volume1, volume2)
 
 # Align and map 
 # from Bio import pairwise2
