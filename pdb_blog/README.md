@@ -30,7 +30,9 @@ with open("./tmp/search_result.tsv") as f:
             test_set_ids[query].append(similarity)
 ```
 
+parKVFiner is another cavity detection method.
 
+[LBC-LNBio/parKVFinder: parKVFinder: thread-level parallel KVFinder (github.com)](https://github.com/LBC-LNBio/parKVFinder)
 
 ## pdb_utils
 
