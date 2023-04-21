@@ -56,7 +56,9 @@ parKVFiner is another cavity detection method.
 
 #### compute_convex_hull_volume
 
+#### find_diSContact  (in disulfide.py)
 
+return the sulfide-bonded atoms
 
 
 
