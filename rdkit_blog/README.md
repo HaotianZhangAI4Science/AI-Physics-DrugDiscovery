@@ -19,6 +19,16 @@ Draw the picture like the following:
 
 #### compute_sasa(pdb_file)
 
+### Grid Representation
+
+Do you want to make the representation as follows? Please find the function in the grid_repre repo. It contains grid representation computation with htmd package and visualization file style, i.e., cube file. 
+
+<div align=center>
+<img src='./grid_repre/grid.png'width="50%"height="50%"align=center />
+</div>
+
+
+
 
 
 ```python
