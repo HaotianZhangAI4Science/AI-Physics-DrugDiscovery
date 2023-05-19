@@ -60,6 +60,13 @@ parKVFiner is another cavity detection method.
 
 return the sulfide-bonded atoms
 
+process pdb with pdb4amber
+
+```python
+pdb4amber -i input.pdb -o output.pdb -y # remove hydrogens
+pdb4amber -i input.pdb -o output.pdb --reduce # add hydrogens (Titration)
+```
+
 
 
 ## alphafold_utils

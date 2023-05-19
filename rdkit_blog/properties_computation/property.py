@@ -18,7 +18,7 @@ import mdtraj as md
 import numpy as np
 
 def sasa(mol):
-    pdb_file = './tmp'
+    pdb_file = './tmp.pdb'
     Chem.MolToPDBFile(mol, pdb_file)
     sasa = compute_sasa(pdb_file)
     os.remove(pdb_file)
