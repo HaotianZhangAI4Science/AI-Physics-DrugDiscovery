@@ -58,6 +58,8 @@ parKVFiner is another cavity detection method.
 
 #### find_diSContact  (in disulfide.py)
 
+remove_hetatom
+
 return the sulfide-bonded atoms
 
 process pdb with pdb4amber

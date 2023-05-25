@@ -7,6 +7,12 @@ Draw the picture like the following:
 <div align=center>
 <img src='./highlight_scaffold/output.png'width="50%"height="50%"align=center />
 </div>
+func draw_align_mols in ./highlight_scaffold/draw_align.py
+
+<div align=center>
+<img src='./highlight_scaffold/output2.png'width="50%"height="50%"align=center />
+</div>
+
 ### properties_computation
 
 #### hba(mol)

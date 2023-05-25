@@ -183,6 +183,25 @@ def extract_alphafold_pocket(pocket_residues, alphafold_structure):
 
     return pocket_residues, pocket_residues_alphafold
     
+def remove_hetatom(pdb_file, out_file=None):
+
+    protein_dir = os.path.dirname(pdb_file)
+    pdb_name = os.path.basename(pdb_file).split('.')[0]
+
+    temp_path_0 = os.path.join(protein_dir, f'{pdb_name}_temp_0.pdb')
+    temp_path_1 = os.path.join(protein_dir, f'{pdb_name}_temp_1.pdb')
+
+    if out_file is None:
+        out_protein_path = os.path.join(protein_dir, f'{pdb_name}_out.pdb')
+    else:
+        out_protein_path = out_file
+
+    subprocess.run(f'pdb_selmodel -1 {pdb_file} > {temp_path_0}', shell=True)
+    subprocess.run(f'pdb_delelem -H {temp_path_0} > {temp_path_1}', shell=True)
+    subprocess.run(f'pdb_delhetatm {temp_path_1} > {out_protein_path}', shell=True)
+
+    os.remove(temp_path_0)
+    os.remove(temp_path_1)
 
 
 # Align and map 
