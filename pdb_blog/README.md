@@ -36,7 +36,7 @@ parKVFiner is another cavity detection method.
 
 #### Compute the pocket of a protein cavity. 
 
-using fpocket to detect the possible pockets. Like the directory, af_pocket_out. 
+using fpocket to detect the possible pockets. Like the provided directory, af_pocket_out. 
 
 <div align=center>
 <img src="./af_pocket_out/af_pocket_out.png" width="80%" height="80%" alt="TOC" align=center />
