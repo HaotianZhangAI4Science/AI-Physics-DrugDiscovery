@@ -34,6 +34,46 @@ parKVFiner is another cavity detection method.
 
 [LBC-LNBio/parKVFinder: parKVFinder: thread-level parallel KVFinder (github.com)](https://github.com/LBC-LNBio/parKVFinder)
 
+#### Compute the pocket of a protein cavity. 
+
+using fpocket to detect the possible pockets. Like the directory, af_pocket_out. 
+
+<div align=center>
+<img src="./af_pocket_out/af_pocket_out.png" width="80%" height="80%" alt="TOC" align=center />
+</div>
+
+It detects five possible sub-pockets, and the sub-pocket of interest should be the one that is closest to the crystal ligand. 
+
+<div align=center>
+<img src="./af_pocket_out/af_pocket_out_lig.png" width="50%" height="50%" alt="TOC" align=center />
+</div>
+
+
+
+```python
+from pdb_utils import read_sdf, read_pocket_info
+from glob import glob
+pkt_files = np.sort(glob('./af_pocket_out/pockets/*.pdb'))
+
+distance = np.zeros(len(pkt_files))
+pkts_info = []
+lig_center = read_sdf(ligand_sdf)[0].GetConformer().GetPositions().mean(axis=0)
+for idx,pkt_file in enumerate(pkt_files):
+    pkt_info = read_pocket_info(pkt_file) # read pocket info, including center, mc_volume, hull_volume
+    pkts_info.append(pkt_info)
+    distance[idx] = np.linalg.norm(lig_center - pkt_info[0]) # compute the distance between ligand center and pocket center
+real_pocket_id = np.argmin(distance) # find the pocket with the minimum distance
+real_mc_volume = pkts_info[real_pocket_id][1]
+real_hull_volume = pkts_info[real_pocket_id][2]
+
+print('Monte Carlo Volume: ', real_mc_volume)
+print('Convex Hull Volumes: ', real_hull_volume)
+```
+
+
+
+
+
 ## pdb_utils
 
 #### pdb_to_fasta

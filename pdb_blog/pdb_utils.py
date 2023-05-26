@@ -11,6 +11,33 @@ from Bio.SeqRecord import SeqRecord
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from tqdm import tqdm
 
+def read_sdf(sdf_file):
+    supp = Chem.SDMolSupplier(sdf_file)
+    mols_list = [i for i in supp]
+    return mols_list
+    
+def read_pocket_info(pdb_file):
+    '''
+    read fpocket output file and return the pocket center and volume
+    '''
+    pocket_coords = []
+    monte_carlo_volume = None
+    convex_hull_volume = None
+
+    with open(pdb_file, "r") as f:
+        for line in f:
+            if line.startswith("ATOM"):
+                x = float(line[30:38].strip())
+                y = float(line[38:46].strip())
+                z = float(line[46:54].strip())
+                pocket_coords.append([x, y, z])
+            if "Pocket volume (Monte Carlo)" in line:
+                monte_carlo_volume = float(line.split(":")[-1].strip())
+            if "Pocket volume (convex hull)" in line:
+                convex_hull_volume = float(line.split(":")[-1].strip())
+    
+    return np.mean(pocket_coords, axis=0), monte_carlo_volume, convex_hull_volume
+
 def pdb_to_fasta(pdb_filename, output_fasta):
     pp_builder = PPBuilder()
     parser = PDBParser(QUIET=True)
