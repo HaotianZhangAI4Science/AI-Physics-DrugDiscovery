@@ -102,11 +102,10 @@ remove_hetatom
 
 return the sulfide-bonded atoms
 
-process pdb with pdb4amber
+prepare the protein PDB File for upstreaming tasks. 
 
 ```python
-pdb4amber -i input.pdb -o output.pdb -y # remove hydrogens
-pdb4amber -i input.pdb -o output.pdb --reduce # add hydrogens (Titration)
+pdbfixer protein.pdb --replace-nonstandard --add-atoms=all --add-residues
 ```
 
 
