@@ -211,6 +211,8 @@ def extract_alphafold_pocket(pocket_residues, alphafold_structure):
     return pocket_residues, pocket_residues_alphafold
     
 def remove_hetatom(pdb_file, out_file=None):
+    # import subprocess
+    # pip install pdb-tools
 
     protein_dir = os.path.dirname(pdb_file)
     pdb_name = os.path.basename(pdb_file).split('.')[0]
@@ -230,6 +232,36 @@ def remove_hetatom(pdb_file, out_file=None):
     os.remove(temp_path_0)
     os.remove(temp_path_1)
 
+def get_virtual_box_center(pdb_file):
+    # Parse the structure
+    parser = PDBParser(QUIET=True)
+    structure = parser.get_structure('structure', pdb_file)
+
+    # Initialize min and max coordinates
+    min_x = min_y = min_z = float('inf')
+    max_x = max_y = max_z = float('-inf')
+
+    for model in structure:
+        for chain in model:
+            for residue in chain:
+                for atom in residue:
+                    # Update min and max coordinates
+                    x, y, z = atom.coord
+                    min_x = min(min_x, x)
+                    min_y = min(min_y, y)
+                    min_z = min(min_z, z)
+                    max_x = max(max_x, x)
+                    max_y = max(max_y, y)
+                    max_z = max(max_z, z)
+
+    # Calculate the center of the bounding box
+    center_x = (min_x + max_x) / 2
+    center_y = (min_y + max_y) / 2
+    center_z = (min_z + max_z) / 2
+
+    center_of_box = (center_x, center_y, center_z)
+    
+    return center_of_box
 
 # Align and map 
 # from Bio import pairwise2

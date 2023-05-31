@@ -72,6 +72,13 @@ print('Convex Hull Volumes: ', real_hull_volume)
 
 
 
+```python
+# Of note, for multiple possible protein pockets detected by software like cavity, you can use the get_virtual_box_center to get the smallest box that can enclose the entire protein structure. 
+# for example
+from utils import get_virtual_box_center
+box_center1 = get_virtual_box_center('./receptor/pocket1.pdb')
+```
+
 
 
 ## pdb_utils
