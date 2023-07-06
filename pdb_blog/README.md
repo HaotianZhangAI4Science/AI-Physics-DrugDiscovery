@@ -105,7 +105,9 @@ box_center1 = get_virtual_box_center('./receptor/pocket1.pdb')
 
 #### find_diSContact  (in disulfide.py)
 
-remove_hetatom
+#### remove_hetatom
+
+#### find_diSContact
 
 return the sulfide-bonded atoms
 
