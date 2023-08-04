@@ -1,5 +1,18 @@
 [(60条消息) [seaborn\] seaborn学习笔记3-直方图Histogramplot_seaborn histogram_落痕的寒假的博客-CSDN博客](https://blog.csdn.net/LuohenYJ/article/details/90704424)
 
+
+
+#### hist plot
+
+```python
+# the classical histgram plot according to the given intervals 
+bins = np.arange(0,110,10)
+plt.hist(all_per, bins, edgecolor='black')
+plt.show()
+```
+
+
+
 #### stick related 
 
 ```python
