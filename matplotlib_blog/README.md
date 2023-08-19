@@ -73,6 +73,12 @@ ax.bar(range(13), counts, width=0.6, align='center', color='white', ec=sns.color
 ax.scatter(actual_values, predicted_values, label='Predicted vs Actual')
 ```
 
+#### Contour Plot
+
+```python
+sns.kdeplot(moses_transformed_new[:,0], moses_transformed_new[:,1], cmap="Blues", shade=True, shade_lowest=False, ax=ax, label='Moses')
+```
+
 
 
 #### other 

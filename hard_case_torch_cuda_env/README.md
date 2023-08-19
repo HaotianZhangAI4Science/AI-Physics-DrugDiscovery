@@ -4,7 +4,7 @@
 # find whether this so.6 in your conda env
 strings /home/app/anaconda3/lib/libstdc++.so.6 | grep GLIBCXX
 # if so
-export LD_LIBRARY_PATH=/home/app/anaconda3/lib
+export LD_LIBRARY_PATH=/home/haotian/software/miniconda3/lib
 ```
 
 ### CUDA error: CUBLAS STATUS_INVALID VALUE when calling cublasGemmEx( handle ...
