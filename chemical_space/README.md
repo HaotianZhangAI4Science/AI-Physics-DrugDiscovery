@@ -14,6 +14,8 @@ This is also called the descriptor-based space.
 
 See `./pca_tsne/pca_and_tsne.ipynb`
 
+
+
 ### Molecular Properties and T-Map
 
 ```python
@@ -23,6 +25,10 @@ python drugbank.py
 python creat_csv_4tmap.py --smiles_txt xxx --save_file xxx
 # then change the file name in drugbank.py and run it again!
 ```
+
+<div align=center>
+<img src="./pca_tsne/pca.png" width="50%" height="50%" alt="TOC" align=center />
+</div>
 
 
 
