@@ -67,7 +67,53 @@ def Murcko_decompose_anchor(mol):
         scaffold, attch_idx = remove_mark_mol(scaffold)
         attch_ids.append(attch_idx)
     return scaffold, attch_ids
+
+def remove_substructure(mol, sub_mol):
+    # Create a molecule object for the substructure
+    substructure = sub_mol
+    if type(sub_mol) == str:
+        substructure = Chem.MolFromSmiles(sub_mol)
     
+    # Find occurrences of the substructure in the molecule
+    matches = mol.GetSubstructMatches(substructure)
+    
+    # Convert the molecule to an editable molecule
+    emol = Chem.EditableMol(mol)
+    
+    # Record the atoms to be removed
+    atoms_to_remove = set()
+    for match in matches:
+        for atom_idx in match:
+            atoms_to_remove.add(atom_idx)
+    
+    # Remove atoms and create mapping
+    old_to_new_idx = {}
+    new_idx = 0
+    breaking_points_in_modified_mol = []
+    for old_idx in range(mol.GetNumAtoms()):
+        if old_idx in atoms_to_remove:
+            continue  # Skip atoms that are removed
+        old_to_new_idx[old_idx] = new_idx
+        new_idx += 1
+
+    # Identify the breaking points in terms of the modified molecule
+    for atom_idx in atoms_to_remove:
+        atom = mol.GetAtomWithIdx(atom_idx)
+        for neighbor in atom.GetNeighbors():
+            neighbor_idx = neighbor.GetIdx()
+            if neighbor_idx not in atoms_to_remove:  # Only consider atoms outside the substructure
+                breaking_points_in_modified_mol.append(old_to_new_idx[neighbor_idx])
+    
+    # Remove atoms
+    for atom_idx in sorted(atoms_to_remove, reverse=True):
+        emol.RemoveAtom(atom_idx)
+    
+    # Get the modified molecule
+    modified_mol = emol.GetMol()
+    
+    return modified_mol, breaking_points_in_modified_mol
+
+
 import scaffoldgraph as sg #pip install scaffoldgraph 
 def HeriS_scaffold(mol):
     network = sg.HierS.from_sdf('example.sdf', progress=True)

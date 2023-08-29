@@ -3,3 +3,10 @@ This repo contains four strategies collected by Odin, and used for training Dele
 I provide the source code here, hope this collection could help you!
 
 The detailed implementation could be found at `fragmentation.ipynb`
+
+I have updated the important function to track the anchor node in the modified molecules after any decomposition methods. 
+
+```python
+from frag import remove_structures(mol, sub_mol)
+```
+
