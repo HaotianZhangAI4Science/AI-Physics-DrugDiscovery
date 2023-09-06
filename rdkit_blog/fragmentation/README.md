@@ -10,3 +10,8 @@ I have updated the important function to track the anchor node in the modified m
 from frag import remove_structures(mol, sub_mol)
 ```
 
+```python
+#surface2pdb
+pkt_fn = osp.join(data_base, surf_fn[:-16]+'10.pdb')
+```
+
