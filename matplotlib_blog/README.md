@@ -48,7 +48,9 @@ ax.spines['right'].set_visible(False)
 # or 
 for spine in ax.spines.values():
     spine.set_visible(False)
-
+# Even if you remove the spines, but the ticks, the number, still pertain. 
+ax.set_xticks([])
+ax.set_yticks([])
 # set line width of spines
 width = 3
 for spine in ax.spines.values():
@@ -86,5 +88,24 @@ sns.kdeplot(moses_transformed_new[:,0], moses_transformed_new[:,1], cmap="Blues"
 ```python
 # delete the grid in the ax
 ax.grid(False)
+```
+
+
+
+##### Cmap (coloar-map) options 
+
+```python
+'viridis': Perceptually uniform colormap, suitable for accurately representing data in heatmaps.
+'plasma': Another perceptually uniform colormap, but with a more vibrant color range.
+'inferno': Similar to 'plasma', but with darker low values.
+'magma': A softer, less contrasty perceptually uniform colormap.
+'cividis': Designed to be legible by those with color vision deficiencies.
+'Greys': A grayscale colormap.
+'Blues': Varying shades of blue.
+'Reds': Varying shades of red.
+'coolwarm': Blue to white to red transition, good for diverging data.
+'seismic': Blue to white to red, another option for diverging data.
+'rainbow': Covers the spectrum of colors, but not perceptually uniform.
+'jet': A popular colormap but often criticized for not being perceptually uniform.
 ```
 
