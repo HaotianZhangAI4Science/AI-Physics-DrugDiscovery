@@ -44,8 +44,20 @@ def mol_with_atom_index(mol):
         mol.GetAtomWithIdx(idx).SetProp('molAtomMapNumber', str(mol.GetAtomWithIdx(idx).GetIdx()))
     return mol
 
-except Exception as e:
-    print(f'error during 3D generation -- {e}')
-    continue
+from rdkit import Chem
+
+def mol2svg(mol, file_name):
+    mc = Chem.Mol(moltoBinary())
+    if not mc.GetNumConformers():
+        Chem.rdDepictor.Compute2DCoords(mc)
+    drawer = Chem.Draw.rdMolDraw2D.MolDraw2DSVG(300,300)
+    drawer.DrawMolecule(mc)
+    drawer.FinishDrawing()
+    svg = drawer.GetDrawingText()
+    svg_cleaned = svg.replace('svg:', '')
+    with open(file_name, 'w') as f:
+        f.write(str(svg_cleaned.data))
+    
+
 ```
 

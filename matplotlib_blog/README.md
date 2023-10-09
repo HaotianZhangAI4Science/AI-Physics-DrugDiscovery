@@ -92,7 +92,7 @@ ax.grid(False)
 
 
 
-##### Cmap (coloar-map) options 
+#### Cmap (coloar-map) options 
 
 ```python
 'viridis': Perceptually uniform colormap, suitable for accurately representing data in heatmaps.
@@ -108,4 +108,75 @@ ax.grid(False)
 'rainbow': Covers the spectrum of colors, but not perceptually uniform.
 'jet': A popular colormap but often criticized for not being perceptually uniform.
 ```
+
+
+
+#### CountourPlot
+
+```python
+y_slice_indices = [10, 20, 30, 40, 50, 60]
+ref_file = './1e8h/1e8h_A_rec_1e8h_adp_lig_tt_min_0_ecloudref.npy'
+ecloud_ref = np.load(ref_file)[0]
+# Convert the data type of the loaded 3D array to float32 for compatibility with matplotlib
+data_3D_float32 = ecloud_ref.astype(np.float32)
+# Create subplots for slices along the Y-axis at specified indices
+fig, axes = plt.subplots(1, len(y_slice_indices), figsize=(20, 4))
+
+# Plot the 2D slices
+for ax, idx in zip(axes, y_slice_indices):
+    slice_2D_y = data_3D_float32[:, idx, :]
+    im = ax.imshow(slice_2D_y, cmap='magma', origin='lower')
+    # ax.set_title(f'Slice along Y-axis at index {idx}')
+    # ax.set_xlabel('X-axis')
+    # ax.set_ylabel('Z-axis')
+    for spine in ax.spines.values():
+        spine.set_visible(False)
+plt.tight_layout()
+plt.show()
+```
+
+<div align=center>
+<img src="./astronomy.png" width="100%" height="100%" alt="TOC" align=center />
+</div>
+
+#### Ink Style
+
+```python
+# contour draws only the contour lines while leaving the area between the lines unfilled. In contrast, contour fills the area with color maps indicating the value at it. 
+x_coord, y_coord, z_coord = np.meshgrid(np.arange(64), np.arange(64), np.arange(64))
+z_slice_indices = [28, 29, 30, 31, 32, 33]
+ecloud_ref = np.load('1bsj_A_rec_1bsj_mln_lig_tt_min_0.npy')
+ecloud_ref = ecloud_ref.astype(np.float32)
+# Convert the data type of the loaded 3D array to float32 for compatibility with matplotlib
+data_3D_float32 = ecloud_ref.astype(np.float32)
+
+# Create subplots for slices along the Y-axis at specified indices
+fig, axes = plt.subplots(1, len(z_slice_indices), figsize=(20, 4))
+
+# Plot the 2D slices
+for ax, idx in zip(axes, z_slice_indices):
+    slice_2D_z = ecloud_ref[:, :, idx]
+    x_slice = x_coord[:, :, idx]
+    y_slice = y_coord[:, :, idx]
+    contourf = ax.contourf(x_slice, y_slice, slice_2D_z, levels=50, cmap='Greys')
+    contour = ax.contour(x_slice, y_slice, slice_2D_z, levels= [0.025, 0.1, 0.2, 0.3], colors='k')  # 'k' for black contour lines
+    for spine in ax.spines.values():
+        spine.set_visible(False)
+    ax.set_xticks([])
+    ax.set_yticks([])
+# Add a colorbar
+# fig.colorbar(im, ax=axes.ravel().tolist(), orientation='vertical', label='Intensity')
+
+plt.tight_layout()
+plt.show()
+<div align=center>
+<img src="./astronomy.png" width="100%" height="100%" alt="TOC" align=center />
+</div
+```
+
+<div align=center>
+    <img src="./diffusion.png" width="100%" height="100%" alt="TOC" aligh=center/>
+</div>
+
+
 
