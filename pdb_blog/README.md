@@ -124,3 +124,18 @@ pdbfixer protein.pdb --replace-nonstandard --add-atoms=all --add-residues
 #### pdb2uniprot
 
 #### download_alphafold_prediction
+
+
+
+## Protein-Ligand Interaction Analysis 
+
+Protein-ligand interaction could be done as follows: 
+
+```
+python protein_ligand_interaction_analysis.py --pdb ./4rn0/4rn0_pocket10.pdb --sdf ./4rn0/test.sdf
+```
+
+<div align=center>
+<img src="./figures/interaction_figure.png" width="50%" height="50%" alt="TOC" align=center />
+</div>
+
