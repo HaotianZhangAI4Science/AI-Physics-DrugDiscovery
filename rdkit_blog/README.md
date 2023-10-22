@@ -61,3 +61,13 @@ def mol2svg(mol, file_name):
 
 ```
 
+### Kekulize Error
+
+I have discussed the possible kekulize errors you may meet in the rdkit, and almost abnormal 99% errors can be attributed to this. You can find the explanation in the `./kekulize_error`
+
+```python
+# highlight the core
+if atom == 7 and all(b == 4 for b in bond_type if (bond_index[0][i] == 6 or bond_index[1][i] == 6)):
+rd_atom.SetNumExplicitHs(1)
+```
+
