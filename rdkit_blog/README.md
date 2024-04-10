@@ -35,8 +35,6 @@ Do you want to make the representation as follows? Please find the function in t
 
 
 
-
-
 ```python
 def mol_with_atom_index(mol):
     atoms = mol.GetNumAtoms()
@@ -69,5 +67,39 @@ I have discussed the possible kekulize errors you may meet in the rdkit, and alm
 # highlight the core
 if atom == 7 and all(b == 4 for b in bond_type if (bond_index[0][i] == 6 or bond_index[1][i] == 6)):
 rd_atom.SetNumExplicitHs(1)
+```
+
+### Substructure Matching
+
+The default substructure matching function in rdkit sometimes fails, especially in nitrogen-containing rings, where the issue often arises from the ring's ability to exist in different tautomeric forms or to have nitrogen atoms with different hybridization states (e.g., pyridine vs. pyrrolidine). These forms can lead to discrepancies in how a substructure search algorithm interprets the bond topology of the ring system. For example, an algorithm might not recognize a pyridine ring in a molecule as a match for a query looking for a five-membered nitrogen-containing ring if the query specifies a particular bond type or arrangement that does not account for the aromatic nature of pyridine. For instance, the following part mol is extracted from full mol using PyMol. But when loading them with rdkit, two instances share different topology, resulting in the None results of full_mol.GetSubstructure(part_mol). 
+
+
+
+<div align=center>
+<img src='./substructure_matching/generic_core_example.png'width="70%"height="70%"align=center />
+</div>
+
+Thus we introduce a generic representation of core, fostering a robust way to do the substructure mapping. After generalizing the part molecule, it will become the Generic Part Mol as shown in the above figure.  The function is in the `./substructure_matching/utils.py`. 
+
+```python
+from substructure_matching.utils import generalize, find_match
+
+# for visual inspection
+generic_mol = generalize(mol)
+# an integration of generic representation in substructure matching
+find_match(target, query_mols) # query_mols is considering that you may have several seperate structures to query. 
+```
+
+### Saving Mol PNG
+
+```python
+# saving IPython.core.display.Image
+from PIL import Image
+import io
+def save_img(ipy_Image, out_file):
+    img_byte_arr = io.BytesIO(ipy_Image.data)
+    img_pil = Image.open(img_byte_arr)
+    img_pil.save(out_file)
+    print('saved at {}'.format(out_file))
 ```
 
