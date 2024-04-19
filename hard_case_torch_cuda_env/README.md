@@ -14,3 +14,14 @@ export LD_LIBRARY_PATH=/homeb/chenyu/miniconda/envs/ecloud/lib
 # Once I tried to use hugging-face transformer and pytorch-lightning to train something, this bug occurred again and again. Meanwhile, the model was deseperated from the cuda device once I straded training. Then, I found the problem is that my torch version is not compatible with the cuda version. Annoying, right? 
 ```
 
+### After the power outage, the CUDA driver could not be found.
+
+(1) Firstly, find the NVIDIA-Linux-x86 64-515.65.01.run at the ./Downloads
+
+(2) `sudo bash NVIDIA-Linux-x86 64-515.65.01.run`
+
+(3) Continue installation twice
+
+(4) Q: Install NVIDIA's 32-bit compatibility libraries. A: No 
+
+(5) Q: Would you like to run the nvidia-xconfig utility to automatically update your X configuration file xxx. A: No.
