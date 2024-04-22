@@ -2,9 +2,9 @@ This repo contains four strategies collected by Odin, and used for training Dele
 
 I provide the source code here, hope this collection could help you!
 
-The detailed explanation could be found at `fragmentation.ipynb`
+A detailed explanation could be found at `fragmentation.ipynb`
 
-In `lead_decomp.py`, I provide a more comprehensive way to decompose molecules 
+In `lead_decomp.py`, I provide a more comprehensive way to decompose molecules for linker design. fragment elaboration, scaffold hopping, and side-chain decoration. 
 
 ```python
 from lead_decomp import linker_decomp, fragment_decomp, scaffold_decompo, side_chains_decomp
