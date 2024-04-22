@@ -90,6 +90,27 @@ generic_mol = generalize(mol)
 find_match(target, query_mols) # query_mols is considering that you may have several seperate structures to query. 
 ```
 
+### Molecule Decomposition for Lead Optimization
+
+You can use the pre-defined functions at `./lead_compound_decomposition/lead_decomp.py` for four lead optimization tasks. 
+
+<div align=center>
+<img src='./lead_compound_decomposition/illustration.png'width="70%"height="70%"align=center />
+</div>
+
+```python
+from lead_decomp import linker_decomp_infos, fragment_decomp_infos, scaffold_decomp_infos, side_chains_decomp_infos
+ligand_nm = './1djy_A_rec_1djz_ip2_lig_tt_min_0.sdf'
+mol = read_sdf(ligand_nm)[0]
+
+linker_decomp_infos = linker_decomp(mol)
+fragment_decomp_infos = fragment_decomp(mol)
+scaffold_decomp_infos = scaffold_decompo(mol)
+side_chains_decomp_infos = side_chains_decomp(mol)
+```
+
+
+
 ### Saving Mol PNG
 
 ```python
