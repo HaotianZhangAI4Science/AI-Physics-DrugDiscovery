@@ -2,16 +2,19 @@ This repo contains four strategies collected by Odin, and used for training Dele
 
 I provide the source code here, hope this collection could help you!
 
-The detailed implementation could be found at `fragmentation.ipynb`
+The detailed explanation could be found at `fragmentation.ipynb`
 
-I have updated the important function to track the anchor node in the modified molecules after any decomposition methods. 
-
-```python
-from frag import remove_structures(mol, sub_mol)
-```
+In `lead_decomp.py`, I provide a more comprehensive way to decompose molecules 
 
 ```python
-#surface2pdb
-pkt_fn = osp.join(data_base, surf_fn[:-16]+'10.pdb')
+from lead_decomp import linker_decomp, fragment_decomp, scaffold_decompo, side_chains_decomp
+
+ligand_nm = './1djy_A_rec_1djz_ip2_lig_tt_min_0.sdf'
+mol = read_sdf(ligand_nm)[0]
+
+linker_decomp_infos = linker_decomp(mol)
+fragment_decomp_infos = fragment_decomp(mol)
+scaffold_decomp_infos = scaffold_decompo(mol)
+side_chains_decomp_infos = side_chains_decomp(mol)
 ```
 

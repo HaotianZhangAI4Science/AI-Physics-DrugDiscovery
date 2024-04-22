@@ -114,8 +114,9 @@ def remove_substructure(mol, sub_mol):
     return modified_mol, breaking_points_in_modified_mol
 
 
-import scaffoldgraph as sg #pip install scaffoldgraph 
+
 def HeriS_scaffold(mol):
+    import scaffoldgraph as sg #pip install scaffoldgraph 
     network = sg.HierS.from_sdf('example.sdf', progress=True)
     scaffold = list(network.get_scaffold_nodes())
     return scaffold
@@ -704,20 +705,20 @@ def find_linker_from_bonds(mol, bond_indices):
             linker = frag
     return linker, frags
 
-def find_genpart(mol, frag, return_large=True):
-    '''
-    Delete fragment in mol, return the residue substructs (generated part)
-    Optional: 
-        return_max: return the largest frag in the fragments
-    '''
-    ress = Chem.DeleteSubstructs(mol,frag)
-    ress = Chem.GetMolFrags(ress, asMols=True)
-    if return_large:
-        ress_num = [i.GetNumAtoms() for i in ress]
-        max_id = np.argmax(ress_num)
-        return ress[max_id]
-    else:
-        return ress
+# def find_genpart(mol, frag, return_large=True):
+#     '''
+#     Delete fragment in mol, return the residue substructs (generated part)
+#     Optional: 
+#         return_max: return the largest frag in the fragments
+#     '''
+#     ress = Chem.DeleteSubstructs(mol,frag)
+#     ress = Chem.GetMolFrags(ress, asMols=True)
+#     if return_large:
+#         ress_num = [i.GetNumAtoms() for i in ress]
+#         max_id = np.argmax(ress_num)
+#         return ress[max_id]
+#     else:
+#         return ress
     
 
 from rdkit.Chem import AllChem, rdShapeHelpers
@@ -752,3 +753,95 @@ def calc_SC_RDKit_score(query_mol, ref_mol):
     SC_RDKit_score = 0.5*fm_score + 0.5*(1 - protrude_dist)
     #SC_RDKit_score = (1 - protrude_dist)
     return SC_RDKit_score
+
+import torch
+def get_mol_coord(mol):
+    return  torch.tensor(np.array(mol.GetConformer().GetPositions()), dtype=torch.float32)
+def get_atom_map_3d(mol, frag, verbose=True):
+    """
+    Find the frag-mol atomic maps.
+    """
+    coords_mol = get_mol_coord(mol)
+    coords_frag = get_mol_coord(frag)
+
+    # Calculate pairwise distance matrix using broadcasting
+    # Expand dims to (n_atoms_frag, 1, 3) and (1, n_atoms_mol, 3) to enable broadcasting
+    distance_matrix = torch.norm(coords_frag[:, None, :] - coords_mol[None, :, :], dim=2)
+
+    # Define epsilon (ε) - threshold for considering distances as close
+    epsilon = 0.01
+
+    # Find atom mappings based on the distance threshold
+    # Using a masked array to find indices where distance is less than epsilon
+    atom_mapping = torch.nonzero(distance_matrix < epsilon, as_tuple=True)
+
+    # Convert atom_mapping from tensor to list of tuples for easier interpretation
+    atom_mapping_list = list(zip(atom_mapping[0].tolist(), atom_mapping[1].tolist()))
+    if len(atom_mapping_list) != frag.GetNumAtoms():
+        if verbose:
+            print('frag do not exactly match the total molecule')
+    return atom_mapping_list
+
+
+def find_anchor_indices_3d(mol, frag):
+    """
+    Finds anchor indices in a fragment based on 3D geometry overlap.
+    
+    Returns:
+    - List of anchor indices within the fragment / mol.
+    """
+    # Convert atom_mapping_list to a dictionary for easier access
+    atom_mapping_list = get_atom_map_3d(mol, frag)
+    mapping_dict = dict(atom_mapping_list)
+    
+    # Find the bonds in mol that connect mapped atoms to unmapped atoms
+    # These will help us identify the anchor points in frag
+    anchor_indices_in_frag = set()
+    anchor_indices_in_mol = set()
+    for frag_atom_idx, mol_atom_idx in atom_mapping_list:
+        mol_atom = mol.GetAtomWithIdx(mol_atom_idx)
+        for neighbor in mol_atom.GetNeighbors():
+            # Check if the neighbor atom is not in the mapping (i.e., it's outside the frag mapping)
+            if neighbor.GetIdx() not in mapping_dict.values():
+                # If the neighbor is outside, then the current mol_atom (and corresponding frag_atom)
+                # is connected to an atom outside the frag, making it an anchor point
+                anchor_indices_in_frag.add(frag_atom_idx)
+                anchor_indices_in_mol.add(mol_atom_idx)
+                break  # Move to the next mapped atom since we've found an anchor
+
+    # Convert set to list and return
+    return list(anchor_indices_in_frag), list(anchor_indices_in_mol)
+
+import copy
+import numpy as np
+def set_mol_position(mol, pos):
+    mol = copy.deepcopy(mol)
+    for i in range(pos.shape[0]):
+        mol.GetConformer(0).SetAtomPosition(i, pos[i].tolist())
+    return mol 
+
+def rm_radical(mol):
+    mol = copy.deepcopy(mol)
+    for atom in mol.GetAtoms():
+        atom.SetNumRadicalElectrons(0)
+    return mol
+
+def generalize(core):
+    query_params = Chem.AdjustQueryParameters()
+    query_params.makeBondsGeneric = True
+    query_params.aromatizeIfPossible = False
+    query_params.adjustDegree = False
+    query_params.adjustHeavyDegree = False
+    generic_core = Chem.AdjustQueryProperties(core,query_params)
+    return generic_core
+
+def transfer_coord_generic(frag, mol, match=None):
+    """
+    Computes coordinates from molecule to fragment (for all matchings)
+    """
+    frag_generic = generalize(frag)
+    match = mol.GetSubstructMatch(frag_generic)
+    mol_coords = mol.GetConformer().GetPositions()
+    frag_coords = mol_coords[np.array(match)]
+    new_frag = set_mol_position(frag, frag_coords)
+    return new_frag
