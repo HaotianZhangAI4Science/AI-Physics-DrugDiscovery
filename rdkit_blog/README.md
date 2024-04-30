@@ -25,6 +25,10 @@ func draw_align_mols in ./highlight_scaffold/draw_align.py
 
 #### compute_sasa(pdb_file)
 
+#### FusedRingAnalyzer(mol)
+
+Find the maximum number of fused-rings
+
 ### Grid Representation
 
 Do you want to make the representation as follows? Please find the function in the grid_repre repo. It contains grid representation computation with htmd package and visualization file style, i.e., cube file. 
