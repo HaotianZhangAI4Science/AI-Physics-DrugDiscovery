@@ -128,3 +128,11 @@ def save_img(ipy_Image, out_file):
     print('saved at {}'.format(out_file))
 ```
 
+
+
+generate_confs.py
+
+```shell
+python generate_confs.py --mols_sdf ./CHEMDIV_tmp/CHEMDIV_75000.sdf 
+```
+
