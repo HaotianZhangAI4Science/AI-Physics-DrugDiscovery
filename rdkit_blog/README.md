@@ -27,7 +27,19 @@ func draw_align_mols in ./highlight_scaffold/draw_align.py
 
 #### FusedRingAnalyzer(mol)
 
-Find the maximum number of fused-rings
+<div align=center>
+<img src='./properties_computation/multi-fused_ring.png'width="30%"height="30%"align=center />
+</div>
+
+Find the maximum number of fused-rings. 
+
+#### is_molecule_fragmented
+
+<div align=center>
+<img src='./properties_computation/fragmented.png'width="30%"height="30%"align=center />
+</div>
+
+Find whether the input mol is fragmented. 
 
 ### Grid Representation
 

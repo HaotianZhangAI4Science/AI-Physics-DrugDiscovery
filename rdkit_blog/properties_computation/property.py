@@ -83,6 +83,22 @@ class FusedRingAnalyzer:
                     max_fused = fused_count
 
         return max_fused
+    
+def is_molecule_fragmented(mol):
+    """
+    Determine if a molecule is fragmented (i.e., consists of disconnected parts).
+
+    Parameters:
+    mol (rdkit.Chem.Mol): The molecule to check.
+
+    Returns:
+    bool: True if the molecule is fragmented, False otherwise.
+    """
+
+    fragments = rdmolops.GetMolFrags(mol, asMols=False)
+
+    return len(fragments) > 1
+
 if __name__ == '__main__':
     smiles = "C1=CC2=C(C=C1)C=CC=C2"  # Naphthalene
     analyzer = FusedRingAnalyzer(smiles)
