@@ -41,7 +41,7 @@ Find the maximum number of fused-rings.
 
 Find whether the input mol is fragmented. 
 
-### Grid Representation
+### Electron Cloud (Density) 
 
 Do you want to make the representation as follows? Please find the function in the grid_repre repo. It contains grid representation computation with htmd package and visualization file style, i.e., cube file. 
 
