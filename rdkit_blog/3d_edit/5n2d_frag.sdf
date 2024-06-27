@@ -1,0 +1,190 @@
+5n2d_ligand
+  PyMOL2.5          3D                             0
+
+ 20 20  0  0  0  0  0  0  0  0999 V2000
+   22.2284   35.6509   22.7807 N   0  3  0  0  0  0  0  0  0  0  0  0
+   16.0268   37.7411   21.8738 O   0  0  0  0  0  0  0  0  0  0  0  0
+   23.0525   34.9948   25.3848 N   0  0  0  0  0  0  0  0  0  0  0  0
+   20.6782   38.0647   23.4133 O   0  0  0  0  0  0  0  0  0  0  0  0
+   21.2597   36.3194   25.7973 O   0  0  0  0  0  0  0  0  0  0  0  0
+   19.4930   34.9141   20.0512 O   0  0  0  0  0  0  0  0  0  0  0  0
+   15.4749   38.1093   23.1307 C   0  0  0  0  0  0  0  0  0  0  0  0
+   17.3538   37.3444   21.8841 C   0  0  0  0  0  0  0  0  0  0  0  0
+   18.3365   37.9193   22.7042 C   0  0  0  0  0  0  0  0  0  0  0  0
+   19.6775   37.5156   22.6316 C   0  0  0  0  0  0  0  0  0  0  0  0
+   20.3401   38.9887   24.4419 C   0  0  0  0  0  0  0  0  0  0  0  0
+   20.0393   36.5204   21.7101 C   0  0  0  0  0  0  0  0  0  0  0  0
+   21.5106   36.1399   21.5191 C   0  0  0  0  0  0  0  0  0  0  0  0
+   21.8540   34.2318   23.2485 C   0  0  0  0  0  0  0  0  0  0  0  0
+   22.3379   33.9171   24.6938 C   0  0  0  0  0  0  0  0  0  0  0  0
+   22.4722   36.1228   25.8268 C   0  0  0  0  0  0  0  0  0  0  0  0
+   23.4053   37.2291   26.2902 C   0  0  0  0  0  0  0  0  0  0  0  0
+   19.0650   35.9083   20.9103 C   0  0  0  0  0  0  0  0  0  0  0  0
+   18.5497   34.2117   19.2599 C   0  0  0  0  0  0  0  0  0  0  0  0
+   17.7319   36.3398   20.9997 C   0  0  0  0  0  0  0  0  0  0  0  0
+  1 13  1  0  0  0  0
+  1 14  1  0  0  0  0
+  2  7  1  0  0  0  0
+  2  8  1  0  0  0  0
+  3 15  1  0  0  0  0
+  3 16  1  0  0  0  0
+  4 10  1  0  0  0  0
+  4 11  1  0  0  0  0
+  5 16  2  0  0  0  0
+  6 18  1  0  0  0  0
+  6 19  1  0  0  0  0
+  8  9  1  0  0  0  0
+  8 20  2  0  0  0  0
+  9 10  2  0  0  0  0
+ 10 12  1  0  0  0  0
+ 12 13  1  0  0  0  0
+ 12 18  2  0  0  0  0
+ 14 15  1  0  0  0  0
+ 16 17  1  0  0  0  0
+ 18 20  1  0  0  0  0
+M  END
+>  <i_m_stars>
+0
+
+>  <s_m_entry_id>
+71
+
+>  <s_m_entry_name>
+Structure71
+
+>  <r_pdb_PDB_CRYST1_a>
+41.201000
+
+>  <r_pdb_PDB_CRYST1_b>
+85.734000
+
+>  <r_pdb_PDB_CRYST1_c>
+161.126000
+
+>  <r_pdb_PDB_CRYST1_alpha>
+90
+
+>  <r_pdb_PDB_CRYST1_beta>
+90
+
+>  <r_pdb_PDB_CRYST1_gamma>
+90
+
+>  <s_pdb_PDB_CRYST1_Space_Group>
+P 21 21 21
+
+>  <i_pdb_PDB_CRYST1_z>
+0
+
+>  <s_pdb_PDB_format_version>
+3.000000
+
+>  <s_m_Source_Path>
+C:\Users\34493\Desktop
+
+>  <s_m_Source_File>
+5n2d.pdb
+
+>  <i_m_Source_File_Index>
+1
+
+>  <s_ppw_entry_id_backup>
+47
+
+>  <b_ppw_prepared>
+1
+
+>  <s_ppw_prepared_with_version>
+2018-3
+
+>  <b_ppw_assigned_bond_orders>
+1
+
+>  <b_ppw_added_hydrogens>
+1
+
+>  <b_ppw_treated_metals>
+1
+
+>  <b_ppw_created_disulfur>
+1
+
+>  <b_ppw_deleted_far_waters>
+1
+
+>  <i_psp_model_num>
+0
+
+>  <r_psp_Prime_Coulomb>
+-7962.916201
+
+>  <r_psp_Prime_Covalent>
+1246.213232
+
+>  <r_psp_Prime_vdW>
+325.052295
+
+>  <r_psp_Prime_Solv_GB>
+-1441.007908
+
+>  <r_psp_Prime_Lipo>
+-613.419045
+
+>  <r_psp_Prime_Energy>
+-8597.569231
+
+>  <s_psp_Prime_Energy_Force_Field>
+OPLS3e
+
+>  <s_psp_Prime_Energy_Solvent_Model>
+VSGB2.1
+
+>  <r_psp_Prime_Hbond>
+-116.335696
+
+>  <r_psp_Prime_Packing>
+-17.197727
+
+>  <r_psp_Prime_SelfCont>
+-17.958181
+
+>  <b_ppw_ran_protassign>
+1
+
+>  <r_i_Potential_Energy-OPLS3e>
+-1091.062136
+
+>  <r_i_RMS_Derivative-OPLS3e>
+0.090509
+
+>  <r_i_Max_Derivative-OPLS3e>
+3.268120
+
+>  <r_i_Stretch_Energy-OPLS3e>
+100.127516
+
+>  <r_i_Bend_Energy-OPLS3e>
+462.078721
+
+>  <r_i_LJ-14_Energy-OPLS3e>
+1145.740834
+
+>  <r_i_El-14_Energy-OPLS3e>
+478.785600
+
+>  <r_i_Van_der_Waals_Energy-OPLS3e>
+-2272.806492
+
+>  <r_i_Electrostatic_Energy-OPLS3e>
+-1453.470824
+
+>  <r_i_Dihedral_Energy-OPLS3e>
+377.192058
+
+>  <r_i_target_temperature>
+298
+
+>  <b_ppw_ran_impref>
+1
+
+$$$$

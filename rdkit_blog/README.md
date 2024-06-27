@@ -1,4 +1,4 @@
-# RDKit Toolkit and tutorial
+# RDKit Toolkit and Tutorial
 
 ### highlight_scaffold
 
@@ -142,9 +142,20 @@ def save_img(ipy_Image, out_file):
 
 
 
-generate_confs.py
+### Generate Conformations Using RDKIT ETKDG
 
 ```shell
 python generate_confs.py --mols_sdf ./CHEMDIV_tmp/CHEMDIV_75000.sdf 
 ```
+
+### Edit 3D Mol
+
+```python
+from filter.editmol_3d import read_sdf, filter_genmol_ac_attach
+gen_mol = read_sdf('./fgfr3_example.sdf')[0]
+frag = read_sdf('./fgfr3_frag.sdf')[0]
+filtered_mol = filter_genmol_ac_attach(gen_mol, frag, [6])
+```
+
+<div align=center><img src="./3d_edit/filter.png" width="100%" height="100%" alt="TOC" align=center /></div>
 
