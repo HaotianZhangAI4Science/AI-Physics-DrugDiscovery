@@ -159,3 +159,24 @@ filtered_mol = filter_genmol_ac_attach(gen_mol, frag, [6])
 
 <div align=center><img src="./3d_edit/filter.png" width="100%" height="100%" alt="TOC" align=center /></div>
 
+### Edit 2D Mol
+
+```Python
+# like chemical reaction transformation 
+from rdkit.Chem import AllChem
+from rdkit import Chem
+
+def amide2amine(mol):
+    # !@ represent the bond that is not in the ring
+    rxn = AllChem.ReactionFromSmarts("[C:1](=O)!@[N:2]!@[CH3:3]>>[C:1](=O)[C:2]=[C:3]")
+    # CH3 denotes terminal Carbon
+    ps = rxn.RunReactants((mol,))
+    if len(ps) == 0:
+        return None
+    return ps[0][0]
+
+mol = Chem.MolFromSmiles('CNC(=O)NC1CCCC(c2nc3ccccc3n2CC(=O)NCC(C)(O)c2ccco2)C1')
+edit_mol = amide2amine(mol)
+```
+
+<div align=center><img src="./2d_edit/amide2amine.png" width="80%" height="80%" alt="TOC" align=center /></div>
