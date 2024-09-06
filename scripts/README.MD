@@ -67,3 +67,27 @@ for result in results:
 
 ```
 
+
+
+**Problem Description:** When executing a Python script that reads a file using a relative path (e.g., `./sure_chembl_alerts.txt`), the script may fail to find the file if it's run from a different directory than the one where the file resides. This is because the relative path in Python is interpreted as relative to the current working directory (CWD), which is the directory from which the script is run, not necessarily where the script is located.
+
+**Solution:** To reliably load files from the same directory as the script, regardless of the CWD, the script should dynamically determine its own directory and construct the path to the file using its directory as the base. This is done using Python’s `os.path` module to obtain the script's absolute path and directory, and then appending the file name to this path.
+
+```
+import os
+import pandas as pd
+
+# Get the absolute path of the current script file
+current_script_path = os.path.abspath(__file__)
+
+# Get the directory where the script is located
+directory_of_script = os.path.dirname(current_script_path)
+
+# Build the absolute path to the target file
+file_path = os.path.join(directory_of_script, "sure_chembl_alerts.txt")
+
+# Use pandas to read the file
+smarts = pd.read_csv(file_path, header=None, sep='\t')[1].tolist()
+
+```
+

@@ -845,3 +845,48 @@ def transfer_coord_generic(frag, mol, match=None):
     frag_coords = mol_coords[np.array(match)]
     new_frag = set_mol_position(frag, frag_coords)
     return new_frag
+
+def add_dummy_atoms(mol, anchor_indices):
+    """
+    Add dummy atoms to a molecule based on the anchor indices.
+    """
+    rw_mol = Chem.RWMol(mol)  
+    emol = Chem.EditableMol(rw_mol)  
+    
+    num_map = 1
+    for idx in anchor_indices:
+        dummy_atom = Chem.Atom(0)  # 0 represents a dummy atom
+        dummy_atom.SetAtomMapNum(num_map)
+        dummy_idx = emol.AddAtom(dummy_atom)
+        
+        # Add a bond between the dummy atom and the anchor atom
+        emol.AddBond(idx, dummy_idx, order=Chem.rdchem.BondType.SINGLE)
+        num_map += 1
+        
+    new_mol = emol.GetMol()
+    Chem.SanitizeMol(new_mol)
+
+    return new_mol
+
+def add_dummy_atoms_3d(mol, anchor_indices):
+    '''
+    Add dummy atoms to a molecule based on the anchor indices. We adopted a trick to create 3D dummy atoms by replacing the hydrogen atoms.
+    '''
+    mol_with_hs = Chem.AddHs(mol,addCoords=True)
+    emol = Chem.EditableMol(mol_with_hs)
+    for idx in anchor_indices:
+        atom = mol_with_hs.GetAtomWithIdx(idx)
+        h_atoms = [a for a in atom.GetNeighbors() if a.GetAtomicNum() == 1]
+        
+        if h_atoms:
+            h_atom = h_atoms[0]
+            dummy_atom = Chem.Atom(0) 
+            dummy_atom.SetAtomMapNum(1)  
+            emol.ReplaceAtom(h_atom.GetIdx(), dummy_atom)
+    
+    new_mol = emol.GetMol()
+    Chem.SanitizeMol(new_mol)
+    
+    new_mol = Chem.RemoveHs(new_mol)
+    
+    return new_mol
