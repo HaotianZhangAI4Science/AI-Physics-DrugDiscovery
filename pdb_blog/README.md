@@ -139,3 +139,38 @@ python protein_ligand_interaction_analysis.py --pdb ./4rn0/4rn0_pocket10.pdb --s
 <img src="./figures/interaction_figure.png" width="50%" height="50%" alt="TOC" align=center />
 </div>
 
+
+## Extract Ligands from the PDB File
+
+<div align=center>
+<img src="./figures/ligand_extract.png" width="50%" height="50%" alt="TOC" align=center />
+</div>
+
+First download the PDB
+
+```python
+from Bio.PDB import PDBList
+def download_pdb(pdb_id, file_format='pdb', target_path='.'):
+
+    # Create a PDBList object
+    pdbl = PDBList()
+    
+    # Download the PDB file
+    file_path = pdbl.retrieve_pdb_file(pdb_id, pdir=target_path, file_format=file_format, overwrite=True)
+    
+    # Construct the new file path with the desired file name format
+    new_file_path = os.path.join(target_path, f"{pdb_id.lower()}.pdb")
+    
+    # Rename the downloaded file to the new file path
+    os.rename(file_path, new_file_path)
+    
+    return new_file_path
+```
+
+Second, use `pdb_lig_split` from the `extract_ligand.py` 
+
+```python
+pdb_lig_split(pdb_file='./4bel.pdb', out_dir='./extraction/')
+```
+
+See the example in `./ligand_extraction/seperate_pro_lig.ipynb`. 
